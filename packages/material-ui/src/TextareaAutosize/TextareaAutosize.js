@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import debounce from '../utils/debounce';
 import useForkRef from '../utils/useForkRef';
@@ -35,6 +35,7 @@ const TextareaAutosize = React.forwardRef(function TextareaAutosize(props, ref) 
   const inputRef = React.useRef(null);
   const handleRef = useForkRef(ref, inputRef);
   const shadowRef = React.useRef(null);
+  const renders = React.useRef(0);
   const [state, setState] = React.useState({});
 
   const syncHeight = React.useCallback(() => {
@@ -44,6 +45,12 @@ const TextareaAutosize = React.forwardRef(function TextareaAutosize(props, ref) 
     const inputShallow = shadowRef.current;
     inputShallow.style.width = computedStyle.width;
     inputShallow.value = input.value || props.placeholder || 'x';
+    if (inputShallow.value.slice(-1) === '\n') {
+      // Certain fonts which overflow the line height will cause the textarea
+      // to report a different scrollHeight depending on whether the last line
+      // is empty. Make it non-empty to avoid this issue.
+      inputShallow.value += ' ';
+    }
 
     const boxSizing = computedStyle['box-sizing'];
     const padding =
@@ -74,18 +81,31 @@ const TextareaAutosize = React.forwardRef(function TextareaAutosize(props, ref) 
     const outerHeightStyle = outerHeight + (boxSizing === 'border-box' ? padding + border : 0);
     const overflow = Math.abs(outerHeight - innerHeight) <= 1;
 
-    setState(prevState => {
-      // Need a large enough different to update the height.
+    setState((prevState) => {
+      // Need a large enough difference to update the height.
       // This prevents infinite rendering loop.
       if (
-        (outerHeightStyle > 0 &&
+        renders.current < 20 &&
+        ((outerHeightStyle > 0 &&
           Math.abs((prevState.outerHeightStyle || 0) - outerHeightStyle) > 1) ||
-        prevState.overflow !== overflow
+          prevState.overflow !== overflow)
       ) {
+        renders.current += 1;
         return {
           overflow,
           outerHeightStyle,
         };
+      }
+
+      if (process.env.NODE_ENV !== 'production') {
+        if (renders.current === 20) {
+          console.error(
+            [
+              'Material-UI: Too many re-renders. The layout is unstable.',
+              'TextareaAutosize limits the number of renders to prevent an infinite loop.',
+            ].join('\n'),
+          );
+        }
       }
 
       return prevState;
@@ -94,6 +114,7 @@ const TextareaAutosize = React.forwardRef(function TextareaAutosize(props, ref) 
 
   React.useEffect(() => {
     const handleResize = debounce(() => {
+      renders.current = 0;
       syncHeight();
     });
 
@@ -108,7 +129,13 @@ const TextareaAutosize = React.forwardRef(function TextareaAutosize(props, ref) 
     syncHeight();
   });
 
-  const handleChange = event => {
+  React.useEffect(() => {
+    renders.current = 0;
+  }, [value]);
+
+  const handleChange = (event) => {
+    renders.current = 0;
+
     if (!isControlled) {
       syncHeight();
     }
@@ -128,7 +155,7 @@ const TextareaAutosize = React.forwardRef(function TextareaAutosize(props, ref) 
         rows={rowsMin}
         style={{
           height: state.outerHeightStyle,
-          // Need a large enough different to allow scrolling.
+          // Need a large enough difference to allow scrolling.
           // This prevents infinite rendering loop.
           overflow: state.overflow ? 'hidden' : null,
           ...style,
@@ -148,6 +175,10 @@ const TextareaAutosize = React.forwardRef(function TextareaAutosize(props, ref) 
 });
 
 TextareaAutosize.propTypes = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
   /**
    * @ignore
    */
@@ -165,15 +196,15 @@ TextareaAutosize.propTypes = {
    *
    * @deprecated
    */
-  rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  rows: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /**
    * Maximum number of rows to display.
    */
-  rowsMax: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  rowsMax: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /**
    * Minimum number of rows to display.
    */
-  rowsMin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  rowsMin: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /**
    * @ignore
    */
@@ -181,7 +212,11 @@ TextareaAutosize.propTypes = {
   /**
    * @ignore
    */
-  value: PropTypes.any,
+  value: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.number,
+    PropTypes.string,
+  ]),
 };
 
 export default TextareaAutosize;

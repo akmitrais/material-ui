@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import withStyles from '../styles/withStyles';
@@ -62,12 +62,18 @@ const CardMedia = React.forwardRef(function CardMedia(props, ref) {
 });
 
 CardMedia.propTypes = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
   /**
    * The content of the component.
    */
-  children: chainPropTypes(PropTypes.node, props => {
-    if (!props.children && !props.image && !props.src) {
-      return new Error('Material-UI: either `children`, `image` or `src` prop must be specified.');
+  children: chainPropTypes(PropTypes.node, (props) => {
+    if (!props.children && !props.image && !props.src && !props.component) {
+      return new Error(
+        'Material-UI: Either `children`, `image`, `src` or `component` prop must be specified.',
+      );
     }
     return null;
   }),
@@ -75,16 +81,16 @@ CardMedia.propTypes = {
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
    */
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
   /**
    * @ignore
    */
   className: PropTypes.string,
   /**
-   * Component for rendering image.
-   * Either a string to use a DOM element or a component.
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
    */
-  component: PropTypes.elementType,
+  component: PropTypes /* @typescript-to-proptypes-ignore */.elementType,
   /**
    * Image to be displayed as a background image.
    * Either `image` or `src` prop must be specified.

@@ -13,7 +13,13 @@ components: Select, NativeSelect
 
 {{"demo": "pages/components/selects/SimpleSelect.js"}}
 
-## ネイティブを選択
+## 高度な機能
+
+選択コンポーネントはネイティブの `<select>` 要素に入れ替えられます。
+
+コンボボックス、複数選択、自動補完、非同期、作成可能のサポートといったさらに高度な機能をお探しなら、[`Autocomplete`コンポーネント](/components/autocomplete/)を参照してください。 It's meant to be an improved version of the "react-select" and "downshift" packages.
+
+## ネイティブ選択
 
 プラットフォームのネイティブ選択を使用することで、モバイルでのユーザーエクスペリエンスを向上させることができます。 このようなパターンを許容します。
 
@@ -25,11 +31,13 @@ components: Select, NativeSelect
 
 ## カスタマイズされた選択
 
-コンポーネントのカスタマイズの例を次に示します。 詳細については、 [オーバーライドのドキュメントページ](/customization/components/)を参照してください。
+コンポーネントのカスタマイズの例を次に示します。 詳細については、 [overrides documentation page](/customization/components/)を参照してください。
 
 最初のステップは、 `InputBase` コンポーネントのスタイル設定です。 スタイルを設定したら、テキストフィールドとして直接使用するか、select `input` プロパティに提供して、 `select` フィールドを作成できます。
 
 {{"demo": "pages/components/selects/CustomizedSelects.js"}}
+
+🎨 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/styles/select).
 
 ## 複数選択
 
@@ -51,7 +59,7 @@ Material Designの仕様では推奨されていませんが、ダイアログ�
 
 ## Grouping
 
-Display categories with the `ListSubheader` component or the native `<optgroup>` element.
+`ListSubheader`コンポーネントまたはネイティブの`<optgroup>`要素でカテゴリを表示します。
 
 {{"demo": "pages/components/selects/GroupedSelect.js"}}
 
@@ -70,8 +78,18 @@ To properly label your `Select` input you need an extra element with an `id` tha
 Alternatively a `TextField` with an `id` and `label` creates the proper markup and ids for you:
 
 ```jsx
-<TextField id="select" label="Age" value="20">
+<TextField id="select" label="Age" value="20" select>
   <MenuItem value="10">Ten</MenuItem>
   <MenuItem value="20">Twenty</MenuItem>
 </TextField>
+```
+
+For a [native select](#native-select), you should mention a label by giving the value of the `id` attribute of the select element to the `InputLabel`'s `htmlFor` attribute:
+
+```jsx
+<InputLabel htmlFor="select">Age</InputLabel>
+<NativeSelect id="select">
+  <option value="10">Ten</option>
+  <option value="20">Twenty</option>
+</NativeSelect>
 ```

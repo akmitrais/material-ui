@@ -22,7 +22,7 @@ function loadScript(src, position, id) {
 
 const autocompleteService = { current: null };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   icon: {
     color: theme.palette.text.secondary,
     marginRight: theme.spacing(2),
@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function GoogleMaps() {
   const classes = useStyles();
+  const [value, setValue] = React.useState(null);
   const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
   const loaded = React.useRef(false);
@@ -47,14 +48,10 @@ export default function GoogleMaps() {
     loaded.current = true;
   }
 
-  const handleChange = event => {
-    setInputValue(event.target.value);
-  };
-
   const fetch = React.useMemo(
     () =>
-      throttle((input, callback) => {
-        autocompleteService.current.getPlacePredictions(input, callback);
+      throttle((request, callback) => {
+        autocompleteService.current.getPlacePredictions(request, callback);
       }, 200),
     [],
   );
@@ -70,46 +67,57 @@ export default function GoogleMaps() {
     }
 
     if (inputValue === '') {
-      setOptions([]);
+      setOptions(value ? [value] : []);
       return undefined;
     }
 
-    fetch({ input: inputValue }, results => {
+    fetch({ input: inputValue }, (results) => {
       if (active) {
-        setOptions(results || []);
+        let newOptions = [];
+
+        if (value) {
+          newOptions = [value];
+        }
+
+        if (results) {
+          newOptions = [...newOptions, ...results];
+        }
+
+        setOptions(newOptions);
       }
     });
 
     return () => {
       active = false;
     };
-  }, [inputValue, fetch]);
+  }, [value, inputValue, fetch]);
 
   return (
     <Autocomplete
       id="google-map-demo"
       style={{ width: 300 }}
-      getOptionLabel={option => (typeof option === 'string' ? option : option.description)}
-      filterOptions={x => x}
+      getOptionLabel={(option) => (typeof option === 'string' ? option : option.description)}
+      filterOptions={(x) => x}
       options={options}
       autoComplete
       includeInputInList
-      freeSolo
-      disableOpenOnFocus
-      renderInput={params => (
-        <TextField
-          {...params}
-          label="Add a location"
-          variant="outlined"
-          fullWidth
-          onChange={handleChange}
-        />
+      filterSelectedOptions
+      value={value}
+      onChange={(event, newValue) => {
+        setOptions(newValue ? [newValue, ...options] : options);
+        setValue(newValue);
+      }}
+      onInputChange={(event, newInputValue) => {
+        setInputValue(newInputValue);
+      }}
+      renderInput={(params) => (
+        <TextField {...params} label="Add a location" variant="outlined" fullWidth />
       )}
-      renderOption={option => {
+      renderOption={(option) => {
         const matches = option.structured_formatting.main_text_matched_substrings;
         const parts = parse(
           option.structured_formatting.main_text,
-          matches.map(match => [match.offset, match.offset + match.length]),
+          matches.map((match) => [match.offset, match.offset + match.length]),
         );
 
         return (

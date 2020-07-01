@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
+import * as React from 'react';
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import createServerRender from 'test/utils/createServerRender';
@@ -197,7 +196,7 @@ describe('<Portal />', () => {
 
   it('should call ref after child effect', () => {
     const callOrder = [];
-    const handleRef = node => {
+    const handleRef = (node) => {
       if (node) {
         callOrder.push('ref');
       }

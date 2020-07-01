@@ -2,7 +2,9 @@
 
 <p class="description">You can add static typing to JavaScript to improve developer productivity and code quality thanks to TypeScript.</p>
 
-Have a look at the [Create React App with TypeScript](https://github.com/mui-org/material-ui/tree/master/examples/create-react-app-with-typescript) example. A minimum version of TypeScript 2.8 is required.
+Material-UI requires a minimum version of TypeScript 3.2.
+
+Have a look at the [Create React App with TypeScript](https://github.com/mui-org/material-ui/tree/master/examples/create-react-app-with-typescript) example.
 
 In order for types to work, you have to at least have the following options enabled
 in your `tsconfig.json`:
@@ -242,8 +244,7 @@ And a custom theme factory with additional defaulted options:
 
 **./styles/createMyTheme**:
 ```ts
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+import { createMuiTheme, ThemeOptions } from '@material-ui/core/styles';
 
 export default function createMyTheme(options: ThemeOptions) {
   return createMuiTheme({

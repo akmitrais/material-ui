@@ -1,14 +1,14 @@
 ---
-title: Material Icons (材料图标)
+title: Material Icons 图标
 components: Icon, SvgIcon
 ---
 
-# Material Icons (材料图标)
+# Material Icons 图标
 
-<p class="description">可以从官方网站上使用超过1,000个React Material图标。</p>
+<p class="description">你可以在我们的官网上找到1100多个 React Material 图标。</p>
 
-我们提供[@material-ui/icons](https://www.npmjs.com/package/@material-ui/icons)这样一个单独的 npm 包，其中包括1000多个已转换为 Svg 图标`SvgIcon` [材料图标](https://material.io/tools/icons/?style=baseline)。</p> 
+[@material-ui/icons](https://www.npmjs.com/package/@material-ui/icons) 这个 npm 包包含了1100多个已经被转换成 [`SvgIcon`](/api/svg-icon/) 的官方 [Material 图标](https://material.io/tools/icons/?style=baseline) 。
 
-{{"demo": "pages/components/material-icons/SearchIcons.js", "hideHeader": true, "bg": true}}
+{{"demo": "pages/components/material-icons/SearchIcons.js", "hideToolbar": true, "bg": true}}
 
-词组支持同义词。 尝试搜索"hamburger"或"logout"。
+ℹ️ 我们的搜索也支持同义词。 你可以尝试搜索 "hamburger" 或 "logout"。

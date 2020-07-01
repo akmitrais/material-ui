@@ -1,8 +1,9 @@
 import { useControlled } from '@material-ui/core/utils';
 
 export default function usePagination(props = {}) {
+  // keep default values in sync with @default tags in Pagination.propTypes
   const {
-    boundaryCount: boundaryCountProp = 1,
+    boundaryCount = 1,
     componentName = 'usePagination',
     count = 1,
     defaultPage = 1,
@@ -17,24 +18,20 @@ export default function usePagination(props = {}) {
     ...other
   } = props;
 
-  // TODO: Update all formulae to remove this adjustment
-  const boundaryCount = boundaryCountProp - 1;
-
   const [page, setPageState] = useControlled({
     controlled: pageProp,
     default: defaultPage,
     name: componentName,
+    state: 'page',
   });
 
   const handleClick = (event, value) => {
-    setTimeout(() => {
-      if (!pageProp) {
-        setPageState(value);
-      }
-      if (handleChange) {
-        handleChange(event, value);
-      }
-    }, 240);
+    if (!pageProp) {
+      setPageState(value);
+    }
+    if (handleChange) {
+      handleChange(event, value);
+    }
   };
 
   // https://dev.to/namirsab/comment/2050
@@ -43,18 +40,18 @@ export default function usePagination(props = {}) {
     return Array.from({ length }, (_, i) => start + i);
   };
 
-  const startPages = range(1, Math.min(boundaryCount + 1, count));
-  const endPages = range(Math.max(count - boundaryCount, boundaryCount + 2), count);
+  const startPages = range(1, Math.min(boundaryCount, count));
+  const endPages = range(Math.max(count - boundaryCount + 1, boundaryCount + 1), count);
 
   const siblingsStart = Math.max(
     Math.min(
       // Natural start
       page - siblingCount,
       // Lower boundary when page is high
-      count - boundaryCount - siblingCount * 2 - 2,
+      count - boundaryCount - siblingCount * 2 - 1,
     ),
     // Greater than startPages
-    boundaryCount + 3,
+    boundaryCount + 2,
   );
 
   const siblingsEnd = Math.min(
@@ -62,7 +59,7 @@ export default function usePagination(props = {}) {
       // Natural end
       page + siblingCount,
       // Upper boundary when page is low
-      boundaryCount + siblingCount * 2 + 3,
+      boundaryCount + siblingCount * 2 + 2,
     ),
     // Less than endPages
     endPages[0] - 2,
@@ -77,10 +74,10 @@ export default function usePagination(props = {}) {
 
     // Start ellipsis
     // eslint-disable-next-line no-nested-ternary
-    ...(siblingsStart > boundaryCount + 3
+    ...(siblingsStart > boundaryCount + 2
       ? ['start-ellipsis']
-      : 2 + boundaryCount < count - boundaryCount - 1
-      ? [2 + boundaryCount]
+      : boundaryCount + 1 < count - boundaryCount
+      ? [boundaryCount + 1]
       : []),
 
     // Sibling pages
@@ -88,10 +85,10 @@ export default function usePagination(props = {}) {
 
     // End ellipsis
     // eslint-disable-next-line no-nested-ternary
-    ...(siblingsEnd < count - boundaryCount - 2
+    ...(siblingsEnd < count - boundaryCount - 1
       ? ['end-ellipsis']
-      : count - boundaryCount - 1 > boundaryCount + 1
-      ? [count - boundaryCount - 1]
+      : count - boundaryCount > boundaryCount
+      ? [count - boundaryCount]
       : []),
 
     ...endPages,
@@ -100,7 +97,7 @@ export default function usePagination(props = {}) {
   ];
 
   // Map the button type to its page number
-  const buttonPage = type => {
+  const buttonPage = (type) => {
     switch (type) {
       case 'first':
         return 1;
@@ -116,21 +113,28 @@ export default function usePagination(props = {}) {
   };
 
   // Convert the basic item list to PaginationItem props objects
-  const items = itemList.map(item => {
+  const items = itemList.map((item) => {
     return typeof item === 'number'
       ? {
-          disabled,
-          onClick: handleClick,
+          onClick: (event) => {
+            handleClick(event, item);
+          },
+          type: 'page',
           page: item,
           selected: item === page,
+          disabled,
+          'aria-current': item === page ? 'true' : undefined,
         }
       : {
-          onClick: handleClick,
+          onClick: (event) => {
+            handleClick(event, buttonPage(item));
+          },
           type: item,
           page: buttonPage(item),
+          selected: false,
           disabled:
             disabled ||
-            (item !== 'ellipsis' &&
+            (item.indexOf('ellipsis') === -1 &&
               (item === 'next' || item === 'last' ? page >= count : page <= 1)),
         };
   });

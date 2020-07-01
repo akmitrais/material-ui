@@ -2,17 +2,17 @@
 
 <p class="description">从社区帮助到高级的商业化支持，我们愿意帮忙。</p>
 
-## 社区帮助
+## 社区帮助 
 
 社区是您对框架提问或给出建议的第一站。 欢迎来到社区！
 
-### StackOverflow <img src="/static/images/logos/stackoverflow.svg" width="24" height="24" alt="StackOverflow logo" loading="lazy" />
+### StackOverflow <img src="/static/images/logos/stackoverflow.svg" width="24" height="24" alt="StackOverflow " loading="lazy" />
 
 对于来自社区Material-UI开发专家，对于众包的技术问题。 以及Material-UI核心团队回答的常见问题。
 
 [提交一个问题](https://stackoverflow.com/questions/tagged/material-ui)
 
-### GitHub <img src="/static/images/logos/github.svg" width="24" height="24" alt="GitHub logo" loading="lazy" />
+### GitHub <img src="/static/images/logos/github.svg" width="24" height="24" alt="GitHub" loading="lazy" />
 
 我们用GitHub issues作为唯一的记录BUG或特性需求的跟踪方式。 如果你认为发现了BUG，或有一个新特性的想法，请在开始前先确保它没有被[报告过或解决过](https://github.com/mui-org/material-ui/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aclosed)。 您可以在现存的Issues或Pull Requests中搜索，以了解是否有人报告过类似的问题。
 
@@ -29,21 +29,21 @@
 
 ### 博客 📝
 
-Stay up to date with the development of the library by following the blog.
+订阅博客以随时了解 Material-UI 开发的最新情况。
 
-[Read the latest posts](https://medium.com/material-ui/)
+[阅读最新的博文](https://medium.com/material-ui/)
 
 ### 资源📖
 
-您是第一次接触 Material-UI 吗? 如果你知道从哪里开始, 就很容易学会!
+您是第一次接触 Material-UI 吗? 如果你知道从哪里开始，就很容易学会！
 
 [学习使用 Material-UI](/getting-started/learn/)
 
-### Twitter <img src="/static/images/logos/twitter.svg" width="24" height="24" alt="Twitter logo" loading="lazy" />
+### Twitter <img src="/static/images/logos/twitter.svg" width="24" height="24" alt="Twitter" loading="lazy" />
 
-Receive the latest news on Material-UI.
+接收 Material-UI 的最新消息。
 
-[Follow us](https://twitter.com/MaterialUI)
+[关注我们](https://twitter.com/MaterialUI)
 
 ### 支持的版本
 
@@ -61,45 +61,9 @@ The current status of each Material-UI version is as follows:
 
 For teams and organizations that require additional support for older versions, Material-UI has [options available](#enterprise).
 
-## 专业支持(高级)
+## Professional support (premium)
 
-### 企业版本
-
-Accelerate your company’s application development with a secure, long-term solution that’s optimized for enterprise and backed by Material-UI experts.
-
-- **Long Term version support.** LTS provides developers and organizations with additional stability and reliability in the applications they’re developing, including guaranteed service level agreements (SLAs) and advisory services. Take the time you need before upgrading to the latest active version of Material-UI, or remain confident in your application’s long-term supportability by staying on whichever version you’re most comfortable with. LTS is available as a paid service, it extends to Material-UI v1 implementations and higher.
-- **Version migration assistance**.
-- **Priority fixes**.
-- **Priority support**. Timely support and troubleshooting when you need it most. Get expert help directly from the Material-UI team with guaranteed response times (next business day).
-
-For more information, [get a quote](mailto:enterprise@material-ui.com) from our team.
-
-### 咨询
-
-Supercharge your team’s development with Material-UI Advisory Services:
-
-#### 开发者咨询
-
-Everything your team needs to make sure you’re using React in the best way as you evaluate and build on Material-UI.
-
-- A private, dedicated Slack channel with access to our consultants. Get real-time advice, guidance, and feedback when you need it, with live Slack access and direct private chat with Material-UI’s expert technical team.
-- An initial review of your architecture and development workflow.
-- Guidance on best practices that will help you take full advantage of Material-UI and prevent avoidable mistakes.
-
-[Get a quote](mailto:advisory@material-ui.com)
-
-#### 企业咨询
-
-A complete support package, for teams using Material-UI for critical business applications and organizations deploying Material-UI across multiple teams.
-
-- Includes "Developer Advisory" scaled to your entire scope of work.
-- A designated Technical Account Manager who understands your business requirements and proactively makes sure you’re getting everything you need.
-- A designated remote consultant who works with your team through every phase of development.
-- Regular, scheduled reviews.
-
-[Get a quote](mailto:advisory@material-ui.com)
-
-### Tidelift subscription <img src="/static/images/logos/tidelift.svg" width="24" height="24" alt="Tidelift logo" loading="lazy" />
+### Tidelift subscription <img src="/static/images/logos/tidelift.svg" width="24" height="24" alt="Tidelift" loading="lazy" />
 
 Material-UI and the maintainers of thousands of other packages are working with Tidelift to deliver one enterprise subscription that covers all of the open-source you use.
 
@@ -115,9 +79,15 @@ The Tidelift Subscription manages your dependencies for you:
 
 The end result? All of the capabilities you expect from commercial-grade software, for the full breadth of open-source you use. That means less time grappling with esoteric open-source trivia, and more time building your own applications – and your business.
 
-[Get more details](https://tidelift.com/subscription/pkg/npm-material-ui?utm_source=material_ui&utm_medium=referral&utm_campaign=enterprise)
+<a
+  data-ga-event-category="support"
+  data-ga-event-action="tidelift"
+  href="https://tidelift.com/subscription/pkg/npm-material-ui?utm_source=npm-material-ui&utm_medium=referral&utm_campaign=enterprise"> Get more details </a>
 
-[Request a demo](https://tidelift.com/subscription/request-a-demo?utm_source=material_ui&utm_medium=referral&utm_campaign=enterprise)
+<a
+  data-ga-event-category="support"
+  data-ga-event-action="tidelift"
+  href="https://tidelift.com/subscription/request-a-demo?utm_source=npm-material-ui&utm_medium=referral&utm_campaign=enterprise"> Request a demo </a>
 
 ### 定制工作🛠
 

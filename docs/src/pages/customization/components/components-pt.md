@@ -144,7 +144,7 @@ Em vez de fornecer valores para a propriedade `classes` da API, você pode utili
 
 ### Use `$ruleName` para referenciar uma regra local dentro da mesma folha de estilo
 
-O plugin [jss-nested](https://github.com/cssinjs/jss-nested) (disponível por padrão) pode facilitar o processo de aumentar a especificidade.
+O plugin [jss-nested](https://github.com/cssinjs/jss/tree/master/packages/jss-plugin-nested) (disponível por padrão) pode facilitar o processo de aumento da especificidade.
 
 ```js
 const styles = {
@@ -187,7 +187,7 @@ Você não precisa se preocupar com a especificidade do CSS, pois o estilo em li
 
 {{"demo": "pages/customization/components/InlineStyle.js"}}
 
-[Quando devo usar o estilo inline vs classes?](/getting-started/faq/#when-should-i-use-inline-style-vs-classes)
+[Quando devo usar o estilo inline vs classes?](/getting-started/faq/#when-should-i-use-inline-style-vs-css)
 
 ## 2. Variação dinâmica para uma situação única
 

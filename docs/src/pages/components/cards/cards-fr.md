@@ -17,9 +17,9 @@ Bien que les cartes puissent prendre en charge plusieurs actions, des contrôles
 
 {{"demo": "pages/components/cards/SimpleCard.js", "bg": true}}
 
-### Outlined Card
+### Cartes encadrées
 
-Set `variant="outlined"` to render an outlined card.
+Définissez `variant="outlined"` pour afficher une carte encadrée.
 
 {{"demo": "pages/components/cards/OutlinedCard.js", "bg": true}}
 
@@ -51,4 +51,4 @@ Voici un exemple de carte de contrôle multimédia.
 
 ## Personnalisation
 
-👑 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/components/card).
+🎨 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/components/card).

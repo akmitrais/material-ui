@@ -12,9 +12,11 @@ Das Widget ist nützlich, um den Wert eines einzeiligen Textfeldes in einem von 
 1. The value for the textbox must be chosen from a predefined set of allowed values, e.g., a location field must contain a valid location name: [combo box](#combo-box).
 2. The textbox may contain any arbitrary value, but it is advantageous to suggest possible values to the user, e.g., a search field may suggest similar or previous searches to save the user time: [free solo](#free-solo).
 
+It's meant to be an improved version of the "react-select" and "downshift" packages.
+
 ## Combo box
 
-The value must be chosen from a predefined set of allowed values.
+Der Wert muss aus einer vordefinierten Menge zulässiger Werte ausgewählt werden.
 
 {{"demo": "pages/components/autocomplete/ComboBox.js"}}
 
@@ -26,17 +28,45 @@ Die folgenden Beispiele demonstrieren je eine Funktion der Autocomplete-Komponen
 
 ### Länderauswahl
 
-Wählen Sie ein Land aus 248.
+Wählen Sie eines der 248 Länder.
 
 {{"demo": "pages/components/autocomplete/CountrySelect.js"}}
 
+### Controllable states
+
+The component has two states that can be controlled:
+
+1. the "value" state with the `value`/`onChange` props combination. This state represents the value selected by the user, for instance when pressing <kbd>Enter</kbd>.
+2. the "input value" state with the `inputValue`/`onInputChange` props combination. This state represents the value displayed in the textbox.
+
+> ⚠️ These two state are isolated, they should be controlled independently.
+
+{{"demo": "pages/components/autocomplete/ControllableStates.js"}}
+
 ## Free solo
 
-Set `freeSolo` to true so the textbox can contain any arbitrary value. The prop is designed to cover the primary use case of a search box with suggestions, e.g. Google search.
+Set `freeSolo` to true so the textbox can contain any arbitrary value.
 
-However, if you intend to use it for a [combo box](#combo-box) like experience (an enhanced version of a select element) we recommend setting `selectOnFocus`.
+### Search input
+
+The prop is designed to cover the primary use case of a **search input** with suggestions, e.g. Google search or react-autowhatever.
 
 {{"demo": "pages/components/autocomplete/FreeSolo.js"}}
+
+### Creatable
+
+If you intend to use this mode for a [combo box](#combo-box) like experience (an enhanced version of a select element) we recommend setting:
+
+- `selectOnFocus` to helps the user clear the selected value.
+- `clearOnBlur` to helps the user to enter a new value.
+- `handleHomeEndKeys` to move focus inside the popup with the <kbd>Home</kbd> and <kbd>End</kbd> keys.
+- A last option, for instance `Add "YOUR SEARCH"`.
+
+{{"demo": "pages/components/autocomplete/FreeSoloCreateOption.js"}}
+
+You could also display a dialog when the user wants to add a new value.
+
+{{"demo": "pages/components/autocomplete/FreeSoloCreateOptionDialog.js"}}
 
 ## Grouped
 
@@ -94,13 +124,27 @@ Falls Sie bestimmte Tags sperren müssen, damit sie nicht in der Schnittstelle e
 
 {{"demo": "pages/components/autocomplete/CheckboxesTags.js"}}
 
+### Limit tags
+
+You can use the `limitTags` prop to limit the number of displayed options when not focused.
+
+{{"demo": "pages/components/autocomplete/LimitTags.js"}}
+
 ## Größen
 
 Fancy smaller inputs? Verwenden Sie die `size` Prop.
 
 {{"demo": "pages/components/autocomplete/Sizes.js"}}
 
-## Angepasste Autovervollständigung
+## Customizations
+
+### Custom input
+
+The `renderInput` prop allows you to customize the rendered input. The first argument of this render prop contains props that you need to forward. Pay specific attention to the `ref` and `inputProps` keys.
+
+{{"demo": "pages/components/autocomplete/CustomInputAutocomplete.js"}}
+
+### GitHub's picker
 
 Diese Demo reproduziert die Label-Auswahl von GitHub:
 
@@ -116,20 +160,27 @@ The following demo relies on [autosuggest-highlight](https://github.com/moroshko
 
 ## Benutzerderfinierter Filter
 
-The component exposes a factory to create a filter method that can provided to the `filerOption` prop. Sie können es verwenden, um das Standard-Filterverhalten der Option zu ändern.
+The component exposes a factory to create a filter method that can provided to the `filterOptions` prop. Sie können es verwenden, um das Standard-Filterverhalten der Option zu ändern.
 
 ```js
 import { createFilterOptions } from '@material-ui/lab/Autocomplete';
 ```
 
-Es unterstützt die folgenden Optionen:
+### `createFilterOptions(config) => filterOptions`
+
+#### Parameter
 
 1. `config` (*Object* [optional]): 
   - `config.ignoreAccents` (*Boolean* [optional]): Defaults to `true`. Remove diacritics.
   - `config.ignoreCase` (*Boolean* [optional]): Defaults to `true`. Alles in Kleinbuchstaben.
+  - `config.limit` (*Number* [optional]): Default to null. Limit the number of suggested options to be shown. For example, if `config.limit` is `100`, only the first `100` matching options are shown. It can be useful if a lot of options match and virtualization wasn't set up.
   - `config.matchFrom` (*'any' | 'start'* [optional]): Defaults to `'any'`.
-  - `config.stringify` (*Func* [optional]): Defaults to `JSON.stringify`.
+  - `config.stringify` (*Func* [optional]): Controls how an option is converted into a string so that it can be matched against the input text fragment.
   - `config.trim ` (*Boolean* [optional]): Standardeinstellung ist `false`. Abschließende Leerzeichen entfernen.
+
+#### Rückgabewerte
+
+`filterOptions`: the returned filter method can be provided directly to the `filterOptions` prop of the `Autocomplete` component, or the parameter of the same name for the hook.
 
 In der folgenden Demo müssen die Optionen mit dem Abfragepräfix beginnen:
 
@@ -188,9 +239,9 @@ Zusätzlich zur Speicherung der eingegebenen Werte kann der Browser aber auch **
 
 VoiceOver auf iOS Safari unterstützt das `aria-owns` Attribut nicht sehr gut. You can work around the issue with the `disablePortal` prop.
 
-### TypeScript
+### ListboxComponent
 
-To fully take advantage of type inference, you need to set the `multiple` prop to `undefined`, `false` or `true`. See [this discussion](https://github.com/mui-org/material-ui/pull/18854#discussion_r364215153) for more details. TypeScript könnte diesen Fehler in Zukunft lösen.
+If you provide a custom `ListboxComponent` prop, you need to make sure that the intended scroll container has the `role` attribute set to `listbox`. This ensures the correct behavior of the scroll, for example when using the keyboard to navigate.
 
 ## Barrierefreiheit
 

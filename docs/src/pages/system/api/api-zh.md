@@ -1,8 +1,8 @@
 # API
 
-<p class="description">@material-ui/system包的API参考。</p>
+<p class="description">@material-ui/system 包的 API 参考文档。</p>
 
-| 组                                 | 导入名称             | Prop             | CSS 属性                          | Theme key                                                              |
+| 组                                 | 导入名称             | 属性               | CSS 属性                          | Theme key                                                              |
 |:--------------------------------- |:---------------- |:---------------- |:------------------------------- |:---------------------------------------------------------------------- |
 | [borders](/system/borders/)       | `border`         | `border`         | `border`                        | `borders`                                                              |
 | [borders](/system/borders/)       | `borderBottom`   | `borderBottom`   | `border-bottom`                 | `borders`                                                              |
@@ -38,6 +38,7 @@
 | [sizing](/system/sizing/)         | `minHeight`      | `minHeight`      | `min-height`                    | none                                                                   |
 | [sizing](/system/sizing/)         | `minWidth`       | `minWidth`       | `min-width`                     | none                                                                   |
 | [sizing](/system/sizing/)         | `width`          | `width`          | `width`                         | none                                                                   |
+| [sizing](/system/sizing/)         | `boxSizing`      | `boxSizing`      | `box-sizing`                    | none                                                                   |
 | [spacing](/system/spacing/)       | `spacing`        | `m`              | `margin`                        | [`spacing`](/customization/default-theme/?expand-path=$.spacing)       |
 | [spacing](/system/spacing/)       | `spacing`        | `mb`             | `margin-bottom`                 | [`spacing`](/customization/default-theme/?expand-path=$.spacing)       |
 | [spacing](/system/spacing/)       | `spacing`        | `ml`             | `margin-left`                   | [`spacing`](/customization/default-theme/?expand-path=$.spacing)       |

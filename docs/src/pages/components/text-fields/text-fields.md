@@ -54,7 +54,7 @@ There are multiple ways to display an icon with a text field.
 ### Input Adornments
 
 The main way is with an `InputAdornment`.
-These can be used to add a prefix, a suffix or an action to an input.
+This can be used to add a prefix, a suffix or an action to an input.
 For instance, you can use an icon button to hide or reveal the password.
 
 {{"demo": "pages/components/text-fields/InputAdornments.js"}}
@@ -67,7 +67,7 @@ Fancy smaller inputs? Use the `size` prop.
 
 ## Layout
 
-`margin` can be used to alter the vertical spacing of inputs.
+`margin` prop can be used to alter the vertical spacing of inputs.
 Using `none` (default) will not apply margins to the `FormControl`, whereas `dense` and `normal` will.
 `dense` and `normal` alter other styles to meet the specification.
 
@@ -77,7 +77,7 @@ Using `none` (default) will not apply margins to the `FormControl`, whereas `den
 
 ## Uncontrolled vs Controlled
 
-The component can be controlled or uncontrolled
+The component can be controlled or uncontrolled.
 
 {{"demo": "pages/components/text-fields/StateTextFields.js"}}
 
@@ -120,7 +120,7 @@ Below is an example using the [`InputBase`](/api/input-base/) component, inspire
 
 {{"demo": "pages/components/text-fields/CustomizedInputBase.js", "bg": true}}
 
-👑 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/components/text-field).
+🎨 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/styles/text-field).
 
 ## Limitations
 
@@ -192,7 +192,7 @@ function MyInputComponent(props) {
 
 ## Accessibility
 
-In order for the text field to be accessible, **the input should be linked to the label and the helper text**. The underlying DOM nodes should have this structure.
+In order for the text field to be accessible, **the input should be linked to the label and the helper text**. The underlying DOM nodes should have this structure:
 
 ```jsx
 <div class="form-control">
@@ -217,7 +217,6 @@ In order for the text field to be accessible, **the input should be linked to th
 
 For more advanced use cases you might be able to take advantage of:
 
-- [formik-material-ui](https://github.com/stackworx/formik-material-ui) Bindings for using Material-UI with formik.
-- [redux-form-material-ui](https://github.com/erikras/redux-form-material-ui) A set of wrapper components to facilitate using Material UI with Redux Form.
-- [final-form-material-ui](https://github.com/Deadly0/final-form-material-ui) A set of wrapper components to facilitate using Material UI with Final Form.
-- [mui-rff](https://github.com/lookfirst/mui-rff) A set of wrapper components to facilitate using Material UI with React Final Form.
+- [formik-material-ui](https://github.com/stackworx/formik-material-ui) Bindings for using Material-UI with [formik](https://jaredpalmer.com/formik).
+- [redux-form-material-ui](https://github.com/erikras/redux-form-material-ui) Bindings for using Material-UI with [Redux Form](https://redux-form.com/).
+- [mui-rff](https://github.com/lookfirst/mui-rff) Bindings for using Material-UI with [React Final Form](https://final-form.org/react).

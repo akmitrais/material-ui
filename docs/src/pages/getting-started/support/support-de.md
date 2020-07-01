@@ -1,22 +1,22 @@
-# Support
+# Unterstützung
 
-<p class="description">From community help to premium critical business support, we’re here to help.</p>
+<p class="description">Von Community-Hilfe bis hin zu erstklassiger Unternehmensunterstützung sind wir hier um Ihnen zu helfen.</p>
 
-## Community help
+## Community help (free)
 
-The community is your first stop for questions and advice about the framework. Welcome to the community!
+Die Community ist Ihre erste Anlaufstelle für Fragen und Beratung zu dem Framework. Willkommen in der Community!
 
 ### StackOverflow <img src="/static/images/logos/stackoverflow.svg" width="24" height="24" alt="StackOverflow logo" loading="lazy" />
 
-For crowdsourced technical questions from expert Material-UI devs in our community. Also frequented by the Material-UI core team.
+Für crowdsourced-technische Fragen von professionellen Material-UI-Entwickler in unserer community. Auch häufig besucht vom Material-UI Kernteam.
 
-[Post a question](https://stackoverflow.com/questions/tagged/material-ui)
+[Stellen Sie eine Frage](https://stackoverflow.com/questions/tagged/material-ui)
 
 ### GitHub <img src="/static/images/logos/github.svg" width="24" height="24" alt="GitHub logo" loading="lazy" />
 
-We use GitHub issues exclusively as a bugs and feature requests tracker. If you think you have found a bug, or have a new feature idea, please start by making sure it hasn't already been [reported or fixed](https://github.com/mui-org/material-ui/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aclosed). You can search through existing issues and pull requests to see if someone has reported one similar to yours.
+Wir verwenden GitHub Issues ausschließlich als Bug und Feature Request-Tracker. Wenn Sie denken, Sie haben einen Bug gefunden, oder haben eine neue Feature-Idee, bitte stellen Sie zuerst sicher, dass diese nicht bereits [gemeldet oder behoben](https://github.com/mui-org/material-ui/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aclosed) wurde. Sie können bestehende Probleme und Pull-Requests durchsuchen, um zu sehen, ob jemand etwas ähnliches gemeldet hat.
 
-[Open an issue](https://github.com/mui-org/material-ui/issues/new/choose)
+[Ein Ticket öffnen](https://github.com/mui-org/material-ui/issues/new/choose)
 
 #### New issue guidelines
 
@@ -61,43 +61,7 @@ The current status of each Material-UI version is as follows:
 
 For teams and organizations that require additional support for older versions, Material-UI has [options available](#enterprise).
 
-## Professional support (Premium)
-
-### Enterprise Edition
-
-Accelerate your company’s application development with a secure, long-term solution that’s optimized for enterprise and backed by Material-UI experts.
-
-- **Long Term version support.** LTS provides developers and organizations with additional stability and reliability in the applications they’re developing, including guaranteed service level agreements (SLAs) and advisory services. Take the time you need before upgrading to the latest active version of Material-UI, or remain confident in your application’s long-term supportability by staying on whichever version you’re most comfortable with. LTS is available as a paid service, it extends to Material-UI v1 implementations and higher.
-- **Version migration assistance**.
-- **Priority fixes**.
-- **Priority support**. Timely support and troubleshooting when you need it most. Get expert help directly from the Material-UI team with guaranteed response times (next business day).
-
-For more information, [get a quote](mailto:enterprise@material-ui.com) from our team.
-
-### Advisory
-
-Supercharge your team’s development with Material-UI Advisory Services:
-
-#### Developer Advisory
-
-Everything your team needs to make sure you’re using React in the best way as you evaluate and build on Material-UI.
-
-- A private, dedicated Slack channel with access to our consultants. Get real-time advice, guidance, and feedback when you need it, with live Slack access and direct private chat with Material-UI’s expert technical team.
-- An initial review of your architecture and development workflow.
-- Guidance on best practices that will help you take full advantage of Material-UI and prevent avoidable mistakes.
-
-[Get a quote](mailto:advisory@material-ui.com)
-
-#### Enterprise Advisory
-
-A complete support package, for teams using Material-UI for critical business applications and organizations deploying Material-UI across multiple teams.
-
-- Includes "Developer Advisory" scaled to your entire scope of work.
-- A designated Technical Account Manager who understands your business requirements and proactively makes sure you’re getting everything you need.
-- A designated remote consultant who works with your team through every phase of development.
-- Regular, scheduled reviews.
-
-[Get a quote](mailto:advisory@material-ui.com)
+## Professional support (premium)
 
 ### Tidelift subscription <img src="/static/images/logos/tidelift.svg" width="24" height="24" alt="Tidelift logo" loading="lazy" />
 
@@ -115,13 +79,19 @@ The Tidelift Subscription manages your dependencies for you:
 
 The end result? All of the capabilities you expect from commercial-grade software, for the full breadth of open-source you use. That means less time grappling with esoteric open-source trivia, and more time building your own applications – and your business.
 
-[Get more details](https://tidelift.com/subscription/pkg/npm-material-ui?utm_source=material_ui&utm_medium=referral&utm_campaign=enterprise)
+<a
+  data-ga-event-category="support"
+  data-ga-event-action="tidelift"
+  href="https://tidelift.com/subscription/pkg/npm-material-ui?utm_source=npm-material-ui&utm_medium=referral&utm_campaign=enterprise"> Get more details </a>
 
-[Request a demo](https://tidelift.com/subscription/request-a-demo?utm_source=material_ui&utm_medium=referral&utm_campaign=enterprise)
+<a
+  data-ga-event-category="support"
+  data-ga-event-action="tidelift"
+  href="https://tidelift.com/subscription/request-a-demo?utm_source=npm-material-ui&utm_medium=referral&utm_campaign=enterprise"> Request a demo </a>
 
 ### Custom work 🛠
 
-Tweak Material-UI to meet specific requirements. Give us a summary of your needs; We'll help you if I can. We might:
+Tweak Material-UI to meet specific requirements. Give us a summary of your needs and we'll help you if we can. We might:
 
 - Give you an estimate of time and price if the work is straightforward
 - Suggest alternatives that might not require Material-UI

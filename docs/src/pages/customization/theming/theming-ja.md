@@ -12,7 +12,7 @@
 
 テーマをカスタマイズする場合は、`ThemeProvider`コンポーネントを使用して、アプリケーションにテーマを挿入する必要があります。 ただし、これはオプションです。 Material-UIコンポーネントにはデフォルトのテーマが付属しています。
 
-`ThemeProvider`はReactのコンテキスト機能に依存して, テーマをコンポーネントに渡します。 そのため、`ThemeProvider`が、カスタマイズしようとしているコンポーネントの親であることを確認する必要があります。 詳細については、[ APIセクション](/styles/api/#themeprovider) をご覧ください。
+`ThemeProvider` relies on the [context feature of React](https://reactjs.org/docs/context.html) to pass the theme down to the components, so you need to make sure that `ThemeProvider` is a parent of the components you are trying to customize. 詳細については、[ APIセクション](/styles/api/#themeprovider) をご覧ください。
 
 ## テーマ構成変数(Theme configuration variables)
 
@@ -29,7 +29,7 @@
 
 ### カスタム変数
 
-When using Material-UI's theme with the [styling solution](/styles/basics/) or [any others](/guides/interoperability/#themeprovider). テーマに変数を追加すると、どこでも使用できるので便利です。 例えば：
+When using Material-UI's theme with the [styling solution](/styles/basics/) or [any others](/guides/interoperability/#themeprovider), it can be convenient to add additional variables to the theme so you can use them everywhere. 例えば：
 
 {{"demo": "pages/customization/theming/CustomStyles.js"}}
 
@@ -78,11 +78,12 @@ import green from '@material-ui/core/colors/green';
 
 const theme = createMuiTheme({
   palette: {
-    primary: purple,
-    secondary: green,
-  },
-  status: {
-    danger: 'orange',
+    primary: {
+      main: purple[500],
+    },
+    secondary: {
+      main: green[500],
+    },
   },
 });
 ```
@@ -112,4 +113,99 @@ import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
+```
+
+### `unstable_createMuiStrictModeTheme(options, ...args) => theme`
+
+**WARNING**: Do not use this method in production.
+
+Generates a theme that reduces the amount of warnings inside [`React.StrictMode`](https://reactjs.org/docs/strict-mode.html) like `Warning: findDOMNode is deprecated in StrictMode`.
+
+#### Requirements
+
+Using `unstable_createMuiStrictModeTheme` restricts the usage of some of our components.
+
+##### `component` prop
+
+The component used in the `component` prop of the following components need to forward their ref:
+
+- [`Collapse`](/api/collapse/)
+
+Otherwise you'll encounter `Error: Function component cannot be given refs`. See also: [Composition: Caveat with refs](/guides/composition/#caveat-with-refs).
+
+##### `children` prop
+
+The `children` of the following components need to forward their ref:
+
+- [`Fade`](/api/fade/)
+- [`Grow`](/api/grow/)
+- [`Zoom`](/api/zoom/)
+
+```diff
+-function TabPanel(props) {
++const TabPanel = React.forwardRef(function TabPanel(props, ref) {
+  return <div role="tabpanel" {...props} ref={ref} />;
+-}
++});
+
+function Tabs() {
+  return <Fade><TabPanel>...</TabPanel></Fade>;
+}
+```
+
+Otherwise the component will not animate properly and you'll encounter the warning that `Function components cannot be given refs`.
+
+#### Disable StrictMode compatibility partially
+
+If you still see `Error: Function component cannot be given refs` then you're probably using a third-party component for which the previously mentioned fixes aren't applicable. You can fix this by applying `disableStrictModeCompat`. You'll see deprecation warnings again but these are only warnings while `Function component cannot be given refs` actually breaks the documented behavior of our components.
+
+```diff
+import { unstable_createMuiStrictModeTheme } from '@material-ui/core/styles';
+
+function ThirdPartyTabPanel(props) {
+  return <div {...props} role="tabpanel">
+}
+
+const theme = unstable_createMuiStrictModeTheme();
+
+function Fade() {
+  return (
+    <React.StrictMode>
+      <ThemeProvider theme={theme}>
+
+-        <Fade>
++        <Fade disableStrictModeCompat>
+          <ThirdPartyTabPanel />
+        </Fade>
+      </ThemeProvider>
+    </React.StrictMode>,
+  );
+}
+```
+
+#### 引数
+
+1. `options` (*Object*): 不完全なテーマオブジェクトを取得し、不足している部分を追加します。
+2. `...args` (*Array*): Deep merge the arguments with the about to be returned theme.
+
+#### 戻り値
+
+`theme` (*Object*): すぐに使用できる完全なテーマオブジェクト。
+
+#### 例
+
+```js
+import { unstable_createMuiStrictModeTheme } from '@material-ui/core/styles';
+
+const theme = unstable_createMuiStrictModeTheme();
+
+function App() {
+  return (
+    <React.StrictMode>
+      <ThemeProvider theme={theme}>
+        <LandingPage />
+      </ThemeProvider>
+    </React.StrictMode>,
+  );
+}
 ```

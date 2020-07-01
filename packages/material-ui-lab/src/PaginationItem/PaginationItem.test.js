@@ -1,18 +1,17 @@
-import React from 'react';
+import * as React from 'react';
 import { expect } from 'chai';
-import { spy } from 'sinon';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
+import { getClasses } from '@material-ui/core/test-utils';
+import createMount from 'test/utils/createMount';
 import describeConformance from '@material-ui/core/test-utils/describeConformance';
 import { createClientRender } from 'test/utils/createClientRender';
 import PaginationItem from './PaginationItem';
 
 describe('<PaginationItem />', () => {
   let classes;
-  let mount;
-  const render = createClientRender({ strict: false });
+  const mount = createMount();
+  const render = createClientRender();
 
   before(() => {
-    mount = createMount();
     classes = getClasses(<PaginationItem />);
   });
 
@@ -21,7 +20,6 @@ describe('<PaginationItem />', () => {
     inheritComponent: 'button',
     mount,
     refInstanceof: window.HTMLButtonElement,
-    after: () => mount.cleanUp(),
   }));
 
   it('should render', () => {
@@ -73,26 +71,5 @@ describe('<PaginationItem />', () => {
     expect(root).to.have.class(classes.root);
     expect(root).not.to.have.class(classes.sizeSmall);
     expect(root).to.have.class(classes.sizeLarge);
-  });
-
-  describe('prop: onClick', () => {
-    it('should be called when clicked', () => {
-      const handleClick = spy();
-      const { getByRole } = render(<PaginationItem page={1} onClick={handleClick} />);
-
-      getByRole('button').click();
-
-      expect(handleClick.callCount).to.equal(1);
-    });
-
-    it('should be called with the button value', () => {
-      const handleClick = spy();
-      const { getByRole } = render(<PaginationItem page={1} onClick={handleClick} />);
-
-      getByRole('button').click();
-
-      expect(handleClick.callCount).to.equal(1);
-      expect(handleClick.args[0][1]).to.equal(1);
-    });
   });
 });

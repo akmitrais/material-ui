@@ -3,7 +3,7 @@ title: Select React component
 components: Select, NativeSelect
 ---
 
-# Select
+# Liste à choix simple
 
 <p class="description">Select components are used for collecting user provided information from a list of options.</p>
 
@@ -12,6 +12,12 @@ components: Select, NativeSelect
 Menus are positioned over their emitting elements such that the currently selected menu item appears on top of the emitting element.
 
 {{"demo": "pages/components/selects/SimpleSelect.js"}}
+
+## Advanced features
+
+The Select component is meant to be interchangeable with a native `<select>` element.
+
+If you are looking for more advanced features, like combobox, multiselect, autocomplete, async or creatable support, head to the [`Autocomplete` component](/components/autocomplete/). It's meant to be an improved version of the "react-select" and "downshift" packages.
 
 ## Native Select
 
@@ -30,6 +36,8 @@ Here are some examples of customizing the component. Vous pouvez en savoir plus 
 The first step is to style the `InputBase` component. Once it's styled, you can either use it directly as a text field or provide it to the select `input` property to have a `select` field.
 
 {{"demo": "pages/components/selects/CustomizedSelects.js"}}
+
+🎨 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/styles/select).
 
 ## Multiple Select
 
@@ -70,8 +78,18 @@ To properly label your `Select` input you need an extra element with an `id` tha
 Alternatively a `TextField` with an `id` and `label` creates the proper markup and ids for you:
 
 ```jsx
-<TextField id="select" label="Age" value="20">
+<TextField id="select" label="Age" value="20" select>
   <MenuItem value="10">Ten</MenuItem>
   <MenuItem value="20">Twenty</MenuItem>
 </TextField>
+```
+
+For a [native select](#native-select), you should mention a label by giving the value of the `id` attribute of the select element to the `InputLabel`'s `htmlFor` attribute:
+
+```jsx
+<InputLabel htmlFor="select">Age</InputLabel>
+<NativeSelect id="select">
+  <option value="10">Ten</option>
+  <option value="20">Twenty</option>
+</NativeSelect>
 ```

@@ -1,15 +1,15 @@
 ---
-title: Componente React Tabelas
+title: Componente React  para Tabelas
 components: Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, TableSortLabel
 ---
 
-# Table (tabela)
+# Tabela
 
-<p class="description">Tables display sets of data. Eles podem ser totalmente customizadas.</p>
+<p class="description">Tabelas exibem conjuntos de dados. Elas podem ser totalmente customizadas.</p>
 
-[Tables](https://material.io/design/components/data-tables.html) display information in a way that’s easy to scan, so that users can look for patterns and insights. Elas podem ser incorporadas no conteúdo principal, assim como Cartões.
+[Tabelas](https://material.io/design/components/data-tables.html) apresentam informações de uma forma fácil de visualizar, de modo que os usuários podem procurar por padrões e percepções. Elas podem ser incorporadas no conteúdo principal, assim como Cartões.
 
-Tables can include:
+As tabelas podem incluir:
 
 - Uma visualização correspondente
 - Navegação
@@ -41,7 +41,7 @@ Um exemplo simples de uma tabela densa sem frescuras.
 
 Este exemplo demonstra o uso de linhas clicáveis e `Checkbox` para a seleção, com uma barra de ferramentas personalizada `Toolbar`. Ele usa o componente `TableSortLabel` para ajudar no estilo dos cabeçalhos das colunas.
 
-A tabela recebeu uma largura fixa para demonstrar a rolagem horizontal. Para impedir que os controles de paginação rolem, o componente TablePagination é usado fora da tabela. (O [Exemplo 'da ação de paginação personalizada'](#custom-table-pagination-action) abaixo mostra a paginação dentro de TableFooter.)
+A tabela recebeu uma largura fixa para demonstrar a rolagem horizontal. Para impedir que os controles de paginação rolem, o componente TablePagination é usado fora da tabela. (O [Exemplo 'da ação de paginação personalizada'](#custom-pagination-actions) abaixo mostra a paginação dentro de TableFooter.)
 
 {{"demo": "pages/components/tables/EnhancedTable.js", "bg": true}}
 
@@ -51,25 +51,25 @@ Aqui está um exemplo de customização do componente. Você pode aprender mais 
 
 {{"demo": "pages/components/tables/CustomizedTables.js", "bg": true}}
 
-### Custom pagination options
+### Opções de paginação customizada
 
-It's possible to customise the options shown in the "Rows per page" select using the `rowsPerPageOptions` prop. You should either provide an array of:
+É possível customizar as opções mostradas na seleção "Rows per page" usando a propriedade `rowsPerPageOptions`. Você deve fornecer um array de:
 
-- **numbers**, each number will be used for the option's label and value.
+- **numbers**, cada número será usado para o rótulo e valor da opção.
     
     ```jsx
     <TablePagination rowsPerPageOptions={[10, 50]} />
     ```
 
-- **objects**, the `value` and `label` keys will be used respectively for the value and label of the option (useful for language strings such as 'All').
+- **objects**, as chaves `value` e `label` serão utilizadas, respectivamente para exibição do rótulo e valor da opção (útil para strings de idioma como 'Todos').
     
     ```jsx
     <TablePagination rowsPerPageOptions={[10, 50, { value: -1, label: 'All' }]} />
     ```
 
-### Custom pagination actions
+### Ações de paginação customizada
 
-A propriedade `Action` do componente `TablePagination` permite a implementação de ações customizadas.
+A propriedade `ActionsComponent` do componente `TablePagination` permite a implementação de ações customizadas.
 
 {{"demo": "pages/components/tables/CustomPaginationActionsTable.js", "bg": true}}
 
@@ -79,7 +79,13 @@ Um exemplo de uma tabela com linhas roláveis e cabeçalhos de coluna fixos. Ele
 
 {{"demo": "pages/components/tables/StickyHeadTable.js", "bg": true}}
 
-## Tabela de abrangência
+## Tabela minimizável
+
+Um exemplo de uma tabela com linhas expansíveis, revelando mais informações. Ela utiliza o componente [`Collapse`](/api/collapse/).
+
+{{"demo": "pages/components/tables/CollapsibleTable.js", "bg": true}}
+
+## Abrangendo Tabela
 
 Um exemplo simples com abrangência de linhas & colunas.
 
@@ -93,7 +99,7 @@ No exemplo a seguir, nós demonstramos como usar [react-virtualized](https://git
 
 ## Projetos Complementares
 
-Para usos mais avançados, você pode tirar vantagem com:
+Para situações de uso mais avançadas, você pode tirar proveito com:
 
 ### material-table
 
@@ -115,6 +121,6 @@ Para usos mais avançados, você pode tirar vantagem com:
 
 ### Caption
 
-A caption functions like a heading for a table. Most screen readers announce the content of captions. Captions help users to find a table and understand what it’s about and decide if they want to read it.
+Um caption funciona como um título para uma tabela. A maioria dos leitores de tela anunciam o conteúdo das legendas. Os captions ajudam os usuários a encontrar uma tabela e a entender o que ela representa e decidir se querem lê-la.
 
 {{"demo": "pages/components/tables/AcccessibleTable.js", "bg": true}}

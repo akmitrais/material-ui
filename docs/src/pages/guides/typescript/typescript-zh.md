@@ -2,9 +2,11 @@
 
 <p class="description">借助 TypeScript，你可以为 JavaScript 添加静态类型，从而提高代码质量及开发者的工作效率。</p>
 
-请查看一下 [Create React App with TypeScript](https://github.com/mui-org/material-ui/tree/master/examples/create-react-app-with-typescript) 的例子。 我们要求 TypeScript 版本必须大于 2.8。
+Material-UI requires a minimum version of TypeScript 3.2.
 
-In order for types to work, you have to at least have the following options enabled in your `tsconfig.json`:
+请查看一下 [Create React App with TypeScript](https://github.com/mui-org/material-ui/tree/master/examples/create-react-app-with-typescript) 的例子。
+
+为了让类型检查起作用，你必须在 `tsconfig.json` 里启用以下选项：
 
 ```json
 {
@@ -17,7 +19,7 @@ In order for types to work, you have to at least have the following options enab
 }
 ```
 
-The strict mode options are the same that are required for every types package published in the `@types/` namespace. 使用不太严格的 `tsconfig.json` 或省略某些库可能会带来一些错误。 To get the best type experience with the types we recommend setting `"strict": true`.
+对每个发布在 `@types/` 命名空间下的类型声明包，同样需要启用严格模式（strict mode）。 使用不太严格的 `tsconfig.json` 或省略某些库可能会带来一些错误。 为了最好的类型检查体验，我们建议设置 `"strict": true` 。
 
 ## `withStyles` 的使用
 
@@ -68,7 +70,7 @@ withStyles(({ palette, spacing }) => ({
 
 这是因为 TypeScript [扩展了函数表达式](https://github.com/Microsoft/TypeScript/issues/241)的返回类型。
 
-Because of this, using the `createStyles` helper function to construct your style rules object is recommended:
+因此，我们建议使用我们的 `createStyles` 帮助函数来构造样式规则对象：
 
 ```ts
 // 不依赖于主题的样式
@@ -239,7 +241,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
 **./styles/createMyTheme**:
 
 ```ts
-import createMuiTheme, { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+import { createMuiTheme, ThemeOptions } from '@material-ui/core/styles';
 
 export default function createMyTheme(options: ThemeOptions) {
   return createMuiTheme({
@@ -260,11 +262,47 @@ import createMyTheme from './styles/createMyTheme';
 const theme = createMyTheme({ appDrawer: { breakpoint: 'md' }});
 ```
 
-## Usage of `component` prop
+## `component` 属性用法
 
-Many Material-UI components allow you to replace their root node via a `component` prop, this will be detailed in the component's API documentation. For example, a Button's root node can be replaced with a React Router's Link, and any additional props that are passed to Button, such as `to`, will be spread to the Link component. For a code example concerning Button and react-router-dom checkout [these demos](/guides/composition/#routing-libraries).
+Material-UI 的许多组件允许你通过 `component` 属性替换它们的根节点，这将在组件的 API 文档中详细说明。 例如，一个按钮（Button）的根节点可以被替换成一个 React Router 的链接（Link），并且传入按钮（Button）的任何额外的属性，例如 `to` ，会被传递到链接（Link）组件。 关于按钮和 react-router-dom 的代码示例查看[这些示例](/guides/composition/#routing-libraries)。
 
-但是，并不是每个组件都完全支持您传入的任何组件类型。 如果您在 TypeScript 中遇到一个不接受其 `component` 属性的组件，请新建一个 issue。 通过使组件道具具有通用性，一直在努力解决这个问题。
+To be able to use props of such a Material-UI component on their own, props should be used with type arguments. Otherwise, the `component` prop will not be present in the props of the Material-UI component.
+
+The examples below use `TypographyProps` but the same will work for any component which has props defined with `OverrideProps`.
+
+The following `CustomComponent` component has the same props as the `Typography` component.
+
+```ts
+function CustomComponent(props: TypographyProps<'a', { component: 'a' }>) {
+  /* ... */
+}
+```
+
+Now the `CustomComponent` can be used with a `component` prop which should be set to `'a'`. In addition, the `CustomComponent` will have all props of a `<a>` HTML element. The other props of the `Typography` component will also be present in props of the `CustomComponent`.
+
+It is possible to have generic `CustomComponent` which will accept any React component, custom and HTML elements.
+
+```ts
+function GenericCustomComponent<C extends React.ElementType>(
+  props: TypographyProps<C, { component?: C }>,
+) {
+  /* ... */
+}
+```
+
+Now if the `GenericCustomComponent` will be used with a `component` prop provided, it should also have all props required by the provided component.
+
+```ts
+function ThirdPartyComponent({ prop1 } : { prop1: string }) {
+  return <div />
+}
+// ...
+<GenericCustomComponent component={ThirdPartyComponent} prop1="some value" />;
+```
+
+The `prop1` became required for the `GenericCustomComponent` as the `ThirdPartyComponent` has it as a requirement.
+
+但是，并不是每个组件都完全支持您传入的任何组件类型。 如果您在 TypeScript 中遇到一个不接受其 `component` 属性的组件，请提起一个 issue。 通过使组件道具具有通用性，一直在努力解决这个问题。
 
 ## 处理`值`和事件处理器
 

@@ -25,16 +25,10 @@ export default function Sizes() {
         id="size-small-standard"
         size="small"
         options={top100Films}
-        getOptionLabel={option => option.title}
+        getOptionLabel={(option) => option.title}
         defaultValue={top100Films[13]}
-        renderInput={params => (
-          <TextField
-            {...params}
-            variant="standard"
-            label="Size small"
-            placeholder="Favorites"
-            fullWidth
-          />
+        renderInput={(params) => (
+          <TextField {...params} variant="standard" label="Size small" placeholder="Favorites" />
         )}
       />
       <Autocomplete
@@ -42,32 +36,20 @@ export default function Sizes() {
         id="size-small-standard-multi"
         size="small"
         options={top100Films}
-        getOptionLabel={option => option.title}
+        getOptionLabel={(option) => option.title}
         defaultValue={[top100Films[13]]}
-        renderInput={params => (
-          <TextField
-            {...params}
-            variant="standard"
-            label="Size small"
-            placeholder="Favorites"
-            fullWidth
-          />
+        renderInput={(params) => (
+          <TextField {...params} variant="standard" label="Size small" placeholder="Favorites" />
         )}
       />
       <Autocomplete
         id="size-small-outlined"
         size="small"
         options={top100Films}
-        getOptionLabel={option => option.title}
+        getOptionLabel={(option) => option.title}
         defaultValue={top100Films[13]}
-        renderInput={params => (
-          <TextField
-            {...params}
-            variant="outlined"
-            label="Size small"
-            placeholder="Favorites"
-            fullWidth
-          />
+        renderInput={(params) => (
+          <TextField {...params} variant="outlined" label="Size small" placeholder="Favorites" />
         )}
       />
       <Autocomplete
@@ -75,23 +57,17 @@ export default function Sizes() {
         id="size-small-outlined-multi"
         size="small"
         options={top100Films}
-        getOptionLabel={option => option.title}
+        getOptionLabel={(option) => option.title}
         defaultValue={[top100Films[13]]}
-        renderInput={params => (
-          <TextField
-            {...params}
-            variant="outlined"
-            label="Size small"
-            placeholder="Favorites"
-            fullWidth
-          />
+        renderInput={(params) => (
+          <TextField {...params} variant="outlined" label="Size small" placeholder="Favorites" />
         )}
       />
       <Autocomplete
         id="size-small-filled"
         size="small"
         options={top100Films}
-        getOptionLabel={option => option.title}
+        getOptionLabel={(option) => option.title}
         defaultValue={top100Films[13]}
         renderTags={(value, getTagProps) =>
           value.map((option, index) => (
@@ -103,14 +79,8 @@ export default function Sizes() {
             />
           ))
         }
-        renderInput={params => (
-          <TextField
-            {...params}
-            variant="filled"
-            label="Size small"
-            placeholder="Favorites"
-            fullWidth
-          />
+        renderInput={(params) => (
+          <TextField {...params} variant="filled" label="Size small" placeholder="Favorites" />
         )}
       />
       <Autocomplete
@@ -118,7 +88,7 @@ export default function Sizes() {
         id="size-small-filled-multi"
         size="small"
         options={top100Films}
-        getOptionLabel={option => option.title}
+        getOptionLabel={(option) => option.title}
         defaultValue={[top100Films[13]]}
         renderTags={(value, getTagProps) =>
           value.map((option, index) => (
@@ -130,14 +100,8 @@ export default function Sizes() {
             />
           ))
         }
-        renderInput={params => (
-          <TextField
-            {...params}
-            variant="filled"
-            label="Size small"
-            placeholder="Favorites"
-            fullWidth
-          />
+        renderInput={(params) => (
+          <TextField {...params} variant="filled" label="Size small" placeholder="Favorites" />
         )}
       />
     </div>

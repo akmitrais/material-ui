@@ -5,7 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: 500,
     '& > * + *': {
@@ -23,15 +23,14 @@ export default function Tags() {
         multiple
         id="tags-standard"
         options={top100Films}
-        getOptionLabel={option => option.title}
+        getOptionLabel={(option) => option.title}
         defaultValue={[top100Films[13]]}
-        renderInput={params => (
+        renderInput={(params) => (
           <TextField
             {...params}
             variant="standard"
             label="Multiple values"
             placeholder="Favorites"
-            fullWidth
           />
         )}
       />
@@ -39,23 +38,22 @@ export default function Tags() {
         multiple
         id="tags-outlined"
         options={top100Films}
-        getOptionLabel={option => option.title}
+        getOptionLabel={(option) => option.title}
         defaultValue={[top100Films[13]]}
         filterSelectedOptions
-        renderInput={params => (
+        renderInput={(params) => (
           <TextField
             {...params}
             variant="outlined"
             label="filterSelectedOptions"
             placeholder="Favorites"
-            fullWidth
           />
         )}
       />
       <Autocomplete
         multiple
         id="tags-filled"
-        options={top100Films.map(option => option.title)}
+        options={top100Films.map((option) => option.title)}
         defaultValue={[top100Films[13].title]}
         freeSolo
         renderTags={(value, getTagProps) =>
@@ -63,14 +61,8 @@ export default function Tags() {
             <Chip variant="outlined" label={option} {...getTagProps({ index })} />
           ))
         }
-        renderInput={params => (
-          <TextField
-            {...params}
-            variant="filled"
-            label="freeSolo"
-            placeholder="Favorites"
-            fullWidth
-          />
+        renderInput={(params) => (
+          <TextField {...params} variant="filled" label="freeSolo" placeholder="Favorites" />
         )}
       />
     </div>

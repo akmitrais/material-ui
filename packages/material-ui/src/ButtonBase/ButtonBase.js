@@ -1,13 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom';
 import clsx from 'clsx';
 import { elementTypeAcceptingRef, refType } from '@material-ui/utils';
 import useForkRef from '../utils/useForkRef';
 import useEventCallback from '../utils/useEventCallback';
 import withStyles from '../styles/withStyles';
-import NoSsr from '../NoSsr';
-import { useIsFocusVisible } from '../utils/focusVisible';
+import useIsFocusVisible from '../utils/useIsFocusVisible';
 import TouchRipple from './TouchRipple';
 
 export const styles = {
@@ -39,6 +38,9 @@ export const styles = {
     '&$disabled': {
       pointerEvents: 'none', // Disable link interactions
       cursor: 'default',
+    },
+    '@media print': {
+      colorAdjust: 'exact',
     },
   },
   /* Pseudo-class applied to the root element if `disabled={true}`. */
@@ -117,7 +119,7 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
   }, [disableRipple, focusRipple, focusVisible]);
 
   function useRippleHandler(rippleAction, eventCallback, skipRippleAction = disableTouchRipple) {
-    return useEventCallback(event => {
+    return useEventCallback((event) => {
       if (eventCallback) {
         eventCallback(event);
       }
@@ -134,7 +136,7 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
   const handleMouseDown = useRippleHandler('start', onMouseDown);
   const handleDragLeave = useRippleHandler('stop', onDragLeave);
   const handleMouseUp = useRippleHandler('stop', onMouseUp);
-  const handleMouseLeave = useRippleHandler('stop', event => {
+  const handleMouseLeave = useRippleHandler('stop', (event) => {
     if (focusVisible) {
       event.preventDefault();
     }
@@ -147,7 +149,7 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
   const handleTouchMove = useRippleHandler('stop', onTouchMove);
   const handleBlur = useRippleHandler(
     'stop',
-    event => {
+    (event) => {
       if (focusVisible) {
         onBlurVisible(event);
         setFocusVisible(false);
@@ -158,11 +160,8 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
     },
     false,
   );
-  const handleFocus = useEventCallback(event => {
-    if (disabled) {
-      return;
-    }
 
+  const handleFocus = useEventCallback((event) => {
     // Fix for https://github.com/facebook/react/issues/7769
     if (!buttonRef.current) {
       buttonRef.current = event.currentTarget;
@@ -190,7 +189,7 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
    * IE 11 shim for https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/repeat
    */
   const keydownRef = React.useRef(false);
-  const handleKeyDown = useEventCallback(event => {
+  const handleKeyDown = useEventCallback((event) => {
     // Check if key is already down to avoid repeats being counted as multiple activations
     if (
       focusRipple &&
@@ -206,19 +205,29 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
       });
     }
 
+    if (event.target === event.currentTarget && isNonNativeButton() && event.key === ' ') {
+      event.preventDefault();
+    }
+
     if (onKeyDown) {
       onKeyDown(event);
     }
 
     // Keyboard accessibility for non interactive elements
-    if (event.target === event.currentTarget && isNonNativeButton() && event.key === 'Enter') {
+    if (
+      event.target === event.currentTarget &&
+      isNonNativeButton() &&
+      event.key === 'Enter' &&
+      !disabled
+    ) {
       event.preventDefault();
       if (onClick) {
         onClick(event);
       }
     }
   });
-  const handleKeyUp = useEventCallback(event => {
+
+  const handleKeyUp = useEventCallback((event) => {
     // calling preventDefault in keyUp on a <button> will not dispatch a click event if Space is pressed
     // https://codesandbox.io/s/button-keyup-preventdefault-dn7f0
     if (
@@ -240,15 +249,13 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
 
     // Keyboard accessibility for non interactive elements
     if (
+      onClick &&
       event.target === event.currentTarget &&
       isNonNativeButton() &&
       event.key === ' ' &&
       !event.defaultPrevented
     ) {
-      event.preventDefault();
-      if (onClick) {
-        onClick(event);
-      }
+      onClick(event);
     }
   });
 
@@ -272,6 +279,28 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
   const handleUserRef = useForkRef(buttonRefProp, ref);
   const handleOwnRef = useForkRef(focusVisibleRef, buttonRef);
   const handleRef = useForkRef(handleUserRef, handleOwnRef);
+
+  const [mountedState, setMountedState] = React.useState(false);
+
+  React.useEffect(() => {
+    setMountedState(true);
+  }, []);
+
+  const enableTouchRipple = mountedState && !disableRipple && !disabled;
+
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    React.useEffect(() => {
+      if (enableTouchRipple && !rippleRef.current) {
+        console.error(
+          [
+            'Material-UI: The `component` prop provided to ButtonBase is invalid.',
+            'Please make sure the children prop is rendered in this custom component.',
+          ].join('\n'),
+        );
+      }
+    }, [enableTouchRipple]);
+  }
 
   return (
     <ComponentProp
@@ -302,17 +331,19 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
       {...other}
     >
       {children}
-      {!disableRipple && !disabled ? (
-        <NoSsr>
-          {/* TouchRipple is only needed client-side, x2 boost on the server. */}
-          <TouchRipple ref={rippleRef} center={centerRipple} {...TouchRippleProps} />
-        </NoSsr>
+      {enableTouchRipple ? (
+        /* TouchRipple is only needed client-side, x2 boost on the server. */
+        <TouchRipple ref={rippleRef} center={centerRipple} {...TouchRippleProps} />
       ) : null}
     </ComponentProp>
   );
 });
 
 ButtonBase.propTypes = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
   /**
    * A ref for imperative actions.
    * It currently only supports `focusVisible()` action.
@@ -338,14 +369,14 @@ ButtonBase.propTypes = {
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
    */
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
   /**
    * @ignore
    */
   className: PropTypes.string,
   /**
    * The component used for the root node.
-   * Either a string to use a DOM element or a component.
+   * Either a string to use a HTML element or a component.
    */
   component: elementTypeAcceptingRef,
   /**
@@ -365,7 +396,6 @@ ButtonBase.propTypes = {
   disableTouchRipple: PropTypes.bool,
   /**
    * If `true`, the base button will have a keyboard focus ripple.
-   * `disableRipple` must also be `false`.
    */
   focusRipple: PropTypes.bool,
   /**
@@ -377,6 +407,10 @@ ButtonBase.propTypes = {
    * if needed.
    */
   focusVisibleClassName: PropTypes.string,
+  /**
+   * @ignore
+   */
+  href: PropTypes.string,
   /**
    * @ignore
    */
@@ -433,20 +467,15 @@ ButtonBase.propTypes = {
   /**
    * @ignore
    */
-  role: PropTypes.string,
-  /**
-   * @ignore
-   */
   tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /**
    * Props applied to the `TouchRipple` element.
    */
   TouchRippleProps: PropTypes.object,
   /**
-   * Used to control the button's purpose.
-   * This prop passes the value to the `type` attribute of the native button component.
+   * @ignore
    */
-  type: PropTypes.oneOf(['submit', 'reset', 'button']),
+  type: PropTypes.oneOfType([PropTypes.oneOf(['button', 'reset', 'submit']), PropTypes.string]),
 };
 
 export default withStyles(styles, { name: 'MuiButtonBase' })(ButtonBase);

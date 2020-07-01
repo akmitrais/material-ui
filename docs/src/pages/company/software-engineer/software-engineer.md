@@ -1,6 +1,6 @@
 # Senior Software Engineer
 
-<p class="description">We are looking for a software engineer to help support our open source team, assist the Material-UI community and grow our premium products. Join us in our mission to make React application development fun by making it simple.</p>
+<p class="description">We are looking for a software engineer to help support our open source team, assist the Material-UI community and grow our premium products. Join us in our mission to make React application development fun and simple.</p>
 
 ## About Us
 
@@ -21,7 +21,7 @@ Material-UI started back in 2014 to unify React and Material Design. Today, Mate
 
 ## Why we’re hiring
 
-Both our open source products and community, and our premium products are [growing fast](https://www.rank2traffic.com/material-ui.com) and we need talented engineers to keep that going!
+Both our open source products and community, and our premium products are [growing fast](https://www.similarweb.com/website/material-ui.com) and we need talented engineers to keep that going!
 
 We need help to continue to improve the health of Material-UI open source: make the library easier to use, make it support more use cases, improve performance, make it more accessible, and make it easier to customize to support [in-house design systems](https://medium.com/google-design/state-of-design-systems-2019-ff5f26ada71). We also need help keeping up with the community, guiding developers to answers, and just generally being a positive presence in the open source community.
 
@@ -67,7 +67,6 @@ Premium components:
 
 - **You’ve contributed to a design system before**. You have worked on enterprise components in the past, maybe for internal usage in your company. You have built complex and advanced features while making sure the accessibility was fully functional.
 - **You’ve maintained an active repository before**. Maybe you’ve helped maintain a popular open source repo, or perhaps you’ve worked on internal repos that saw contributions from multiple teams. Previous experience with highly active repo workflows is a definite plus for this role.
-- **You have used Material-UI before**. You have built a non trivial application with Material-UI in the past. You know the limitations of the library, you know a few areas that could be improved.
 - **You have contributed code to Material-UI before**. A history of contributing to Material-UI would be a definite plus.
 
 ## The best parts of this job
@@ -86,7 +85,7 @@ The work you would be doing is somewhat unique and idiosyncratic. You probably h
 
 ## Benefits for you
 
-- Competitive compensation of up to $120k/year, depending on the profile. Could go higher in the case of an extraordinary match.
+- Competitive compensation of up to $140k/year, depending on the profile. Could go higher in the case of an extraordinary match.
 - Flexible workplace & hours.
 
 ## Apply

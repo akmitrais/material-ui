@@ -45,7 +45,7 @@ The Material Design team at Google has made the customization of their design sy
 
 ![Demo3](/static/blog/material-ui-v4-is-out/demo3.png)
 
-<p class="blog-description"><a href="https://mui-treasury.com/components/button#customized-button">live demo</a></p>
+<p class="blog-description"><a href="https://mui-treasury.com/styles/button">live demo</a></p>
 
 After listening to v3 customization experiences of hundreds of developers, we realized that we could do better. We have found 4 classes of common problems.
 
@@ -305,7 +305,7 @@ Developers should be able to use their preferred styling solution without paying
 
 How are we going to sustain this ambitious roadmap?
 We will follow the Bootstrap model.
-We are working on [a Premium themes store](https://themes.material-ui.com/).
+We are working on [a Premium themes store](https://material-ui.com/store/).
 
 We have built partnerships with the best theme authors of the ecosystem.
 Within a few weeks, you should find a collection of the best Material-UI templates and themes 😍.

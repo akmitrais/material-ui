@@ -9,17 +9,19 @@ components: Switch, FormControl, FormGroup, FormLabel, FormControlLabel
 
 [Switches](https://material.io/design/components/selection-controls.html#switches) are the preferred way to adjust settings on mobile. The option that the switch controls, as well as the state it’s in, should be made clear from the corresponding inline label.
 
+## Basic switches
+
 {{"demo": "pages/components/switches/Switches.js"}}
 
-## Switches with FormControlLabel
+## Switch with FormControlLabel
 
-`Switch` can also be used with a label description thanks to the `FormControlLabel` component.
+`Switch` can be provided with a description thanks to the `FormControlLabel` component.
 
 {{"demo": "pages/components/switches/SwitchLabels.js"}}
 
 ## Switches with FormGroup
 
-`FormGroup` es un contenedor muy útil usado para agrupar componentes de controles de selección que proporciona una API más sencilla. However, we encourage you to use a [Checkbox](/components/checkboxes/) instead.
+`FormGroup` es un contenedor muy útil usado para agrupar componentes de controles de selección que proporciona una API más sencilla. However, you are encouraged you to use [Checkboxes](/components/checkboxes/) instead if multiple related controls are required. (See: [When to use](#when-to-use)).
 
 {{"demo": "pages/components/switches/SwitchesGroup.js"}}
 
@@ -28,6 +30,8 @@ components: Switch, FormControl, FormGroup, FormLabel, FormControlLabel
 Here are some examples of customizing the component. You can learn more about this in the [overrides documentation page](/customization/components/).
 
 {{"demo": "pages/components/switches/CustomizedSwitches.js"}}
+
+🎨 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/styles/switch).
 
 ## Tamaños
 
